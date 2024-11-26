@@ -8,13 +8,18 @@ export interface City {
   o3: air[];
   co: air[];
   so2: air[];
-  fc_pm25: forecastInfo[];
-  fc_pm10: forecastInfo[];
-  fc_o3: forecastInfo[];
-  fc_uvi: forecastInfo[];
+  fc_pm25: FORECAST[];
+  fc_pm10: FORECAST[];
+  fc_o3: FORECAST[];
+  fc_uvi: FORECAST[];
+  city: {
+    latitude: number;
+    longitude: number;
+    name: string;
+  };
 }
 
-interface forecastInfo {
+interface FORECAST {
   avg: number;
   day: string;
   max: number;

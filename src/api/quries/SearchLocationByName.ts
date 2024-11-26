@@ -26,6 +26,10 @@ interface info {
     s: string;
     tz: string;
   };
+  city: {
+    geo: number[];
+    name: string;
+  };
 }
 
 interface FORECAST {
@@ -48,8 +52,8 @@ export default async function searchByName(city: string) {
 
   const cityInfo: City[] = result.data.map((d) => {
     return {
-      aqi: d.aqi,
       idx: d.idx,
+      aqi: d.aqi,
       time: d.time.s,
       timezone: d.time.tz,
       pm25: d.iaqi.pm25,
@@ -61,6 +65,11 @@ export default async function searchByName(city: string) {
       fc_pm10: d.forecast.daily.pm10,
       fc_o3: d.forecast.daily.o3,
       fc_uvi: d.forecast.daily.uvi,
+      city: {
+        latitude: d.city.geo[0],
+        longitude: d.city.geo[1],
+        name: d.city.name,
+      },
     };
   });
   return cityInfo;
