@@ -1,76 +1,85 @@
-import type { City } from "../types/City";
+import type { CityResponse } from "../types/City";
 
-interface citySearchResponse {
-  data: info[];
+export interface citySearchResponse {
+  data: Data;
 }
 
-interface info {
-  idx: number;
+interface Data {
   aqi: number;
-  forecast: {
-    daily: {
-      o3: FORECAST[];
-      pm10: FORECAST[];
-      pm25: FORECAST[];
-      uvi: FORECAST[];
-    };
-  };
-  iaqi: {
-    pm25: air[];
-    pm10: air[];
-    o3: air[];
-    co: air[];
-    so2: air[];
-  };
-  time: {
-    s: string;
-    tz: string;
-  };
-  city: {
-    geo: number[];
-    name: string;
-  };
+  idx: number;
+  city: City;
+  iaqi: Iaqi;
+  time: Time;
+  forecast: Forecast;
 }
 
-interface FORECAST {
+interface Forecast {
+  daily: Daily;
+}
+
+interface Daily {
+  o3: fc[];
+  pm10: fc[];
+  pm25: fc[];
+  uvi: fc[];
+}
+
+interface fc {
   avg: number;
   day: string;
   max: number;
-  min: string;
+  min: number;
 }
 
-interface air {
+interface Time {
+  s: string;
+  tz: string;
+}
+
+interface Iaqi {
+  co: Co;
+  o3: Co;
+  pm10: Co;
+  pm25: Co;
+  so2: Co;
+}
+
+interface Co {
   v: number;
 }
 
-export default async function searchByName(city: string) {
+interface City {
+  geo: number[];
+  name: string;
+}
+
+export default async function SearchLocationByName(
+  cityName: string
+): Promise<CityResponse> {
   const token = "f2e31625803dbd97944d43e9f4193c30fcf93129";
-  const res = await fetch(`https://api.waqi.info/feed/${city}/?token=${token}`);
+  const res = await fetch(
+    `https://api.waqi.info/feed/${cityName}/?token=${token}`
+  );
 
-  const result = (await res.json()) as citySearchResponse;
-  console.log(result, "result");
+  const result: citySearchResponse = await res.json();
+  // console.log(result, "result in search");
 
-  const cityInfo: City[] = result.data.map((d) => {
-    return {
-      idx: d.idx,
-      aqi: d.aqi,
-      time: d.time.s,
-      timezone: d.time.tz,
-      pm25: d.iaqi.pm25,
-      pm10: d.iaqi.pm10,
-      o3: d.iaqi.o3,
-      co: d.iaqi.co,
-      so2: d.iaqi.so2,
-      fc_pm25: d.forecast.daily.pm25,
-      fc_pm10: d.forecast.daily.pm10,
-      fc_o3: d.forecast.daily.o3,
-      fc_uvi: d.forecast.daily.uvi,
-      city: {
-        latitude: d.city.geo[0],
-        longitude: d.city.geo[1],
-        name: d.city.name,
-      },
-    };
-  });
-  return cityInfo;
+  return {
+    aqi: result.data.aqi,
+    idx: result.data.idx,
+    time: result.data.time.s,
+    timezone: result.data.time.tz,
+    pm25: result.data.iaqi.pm25,
+    pm10: result.data.iaqi.pm10,
+    o3: result.data.iaqi.o3,
+    co: result.data.iaqi.co,
+    so2: result.data.iaqi.so2,
+    fc_pm25: result.data.forecast.daily.pm25,
+    fc_pm10: result.data.forecast.daily.pm10,
+    fc_o3: result.data.forecast.daily.o3,
+    fc_uvi: result.data.forecast.daily.uvi,
+    latitude: result.data.city.geo[0],
+    longitude: result.data.city.geo[1],
+    name: result.data.city.name,
+  };
 }

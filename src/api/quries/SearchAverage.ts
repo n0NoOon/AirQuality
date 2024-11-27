@@ -9,30 +9,29 @@ interface Data {
   time: {
     s: string;
   };
-  city: {
+  station: {
     name: string;
     geo: number[];
   };
 }
 
-export default async function SearchAverage(keyword: string) {
+export default async function SearchAverage(keyword: string): Promise<Average> {
   const token = "f2e31625803dbd97944d43e9f4193c30fcf93129";
   const res = await fetch(
-    `https://api.waqi.info/search/keyword=${keyword}&token=${token}`
+    `https://api.waqi.info/search/?keyword=${keyword}&token=${token}`
   );
 
   const result = (await res.json()) as airResponse;
+  // console.log(result, "result in search");
+  const data = result.data[0];
+  // console.log(data, "data");
 
-  const avg: Average[] = result.data.map((d) => {
-    return {
-      uid: d.uid,
-      aqi: d.aqi,
-      s: d.time.s,
-      name: d.city.name,
-      latitude: d.city.geo[0],
-      logitude: d.city.geo[1],
-    };
-  });
-
-  return avg;
+  return {
+    uid: data.uid,
+    aqi: data.aqi,
+    s: data.time.s,
+    name: data.station.name,
+    latitude: data.station.geo[0],
+    longitude: data.station.geo[1],
+  };
 }

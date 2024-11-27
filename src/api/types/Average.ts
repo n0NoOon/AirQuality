@@ -4,5 +4,5 @@ export interface Average {
   s: string;
   name: string;
   latitude: number;
-  logitude: number;
+  longitude: number;
 }
