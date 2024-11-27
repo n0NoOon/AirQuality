@@ -27,7 +27,6 @@ function Map({ place }: MapProps) {
     >
       <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
       <TileLayer url="https://tiles.aqicn.org//tiles/usepa-aqi/{z}/{x}/{y}.png?token=f2e31625803dbd97944d43e9f4193c30fcf93129" />
-      {/* {place && <Marker position={[place.latitude, place.longitude]} />} */}
     </MapContainer>
   );
 }
