@@ -1,9 +1,16 @@
 import Map from "@/components/Map";
-import { useState } from "react";
-import type { Place } from "@/api/types/Place";
+import { useEffect, useState } from "react";
+import Search from "./Search";
+import Detail from "./Detail";
+import { Average } from "@/api/types/Average";
 
 export default function Home() {
-  const [places, setPlaces] = useState<Place | null>(null);
+  const [places, setPlaces] = useState<Average | null>(null);
+  console.log(places, "Send");
+
+  useEffect(() => {
+    console.log(places, "It change");
+  }, [places]);
 
   return (
     <div className="h-screen w-screen grid grid-rows-12">
@@ -12,7 +19,15 @@ export default function Home() {
         <div className="col-span-7">
           <Map place={places} />
         </div>
-        <div className="col-span-5">Details Window</div>
+        <div className="col-span-5">
+          Details Window
+          <div>
+            <Search onPlaceClick={(p) => setPlaces(p)} />
+          </div>
+          <div>
+            <Detail />
+          </div>
+        </div>
       </div>
     </div>
   );
