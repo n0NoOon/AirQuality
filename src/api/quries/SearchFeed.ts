@@ -1,4 +1,4 @@
-import type { CityResponse } from "../types/City";
+import type { Feed } from "../types/Feed";
 
 export interface citySearchResponse {
   data: Data;
@@ -53,9 +53,7 @@ interface City {
   name: string;
 }
 
-export default async function SearchLocationByName(
-  cityName: string
-): Promise<CityResponse> {
+export default async function SearchFeed(cityName: string): Promise<Feed> {
   const token = "f2e31625803dbd97944d43e9f4193c30fcf93129";
   const res = await fetch(
     `https://api.waqi.info/feed/${cityName}/?token=${token}`

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Average } from "@/api/types/Average";
-import SearchAverage from "@/api/quries/SearchAverage";
+import SearchName from "@/api/quries/SearchName";
 
 interface LocationSearchProps {
   onPlaceClick: (data: Average | null) => void;
@@ -12,7 +12,7 @@ export default function Search({ onPlaceClick }: LocationSearchProps) {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const result = await SearchAverage(term);
+    const result = await SearchName(term);
     setPlaces(result);
     onPlaceClick(places);
   };
