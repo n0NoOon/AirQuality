@@ -3,18 +3,20 @@ import { Average } from "@/api/types/Average";
 import SearchName from "@/api/quries/SearchName";
 
 interface LocationSearchProps {
-  onPlaceClick: (data: Average | null) => void;
+  SendResult: (data: Average | null) => void;
 }
 
-export default function Search({ onPlaceClick }: LocationSearchProps) {
-  const [places, setPlaces] = useState<Average | null>(null);
+export default function Search({ SendResult }: LocationSearchProps) {
+  // const [places, setPlaces] = useState<Average | null>(null);
   const [term, setTerm] = useState("");
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    // console.log("term", term);
     const result = await SearchName(term);
-    setPlaces(result);
-    onPlaceClick(places);
+    // setPlaces(result);
+    SendResult(result);
+    // console.log("handleSubmit---->", result, result);
   };
 
   return (

@@ -3,11 +3,11 @@ export interface Feed {
   aqi: number;
   time: string;
   timezone: string;
-  pm25: air;
-  pm10: air;
-  o3: air;
-  co: air;
-  so2: air;
+  pm25: number;
+  pm10: number;
+  o3: number;
+  co: number;
+  so2: number;
   fc_pm25: FORECAST[];
   fc_pm10: FORECAST[];
   fc_o3: FORECAST[];
@@ -22,8 +22,4 @@ interface FORECAST {
   day: string;
   max: number;
   min: number;
-}
-
-interface air {
-  v: number;
 }

@@ -1,6 +1,7 @@
 import type { Feed } from "../types/Feed";
 
 export interface citySearchResponse {
+  status: string;
   data: Data;
 }
 
@@ -53,31 +54,45 @@ interface City {
   name: string;
 }
 
-export default async function SearchFeed(cityName: string): Promise<Feed> {
+export default async function searchFeed(
+  cityName: string | undefined
+): Promise<Feed | null> {
   const token = "f2e31625803dbd97944d43e9f4193c30fcf93129";
-  const res = await fetch(
+  let res = await fetch(
     `https://api.waqi.info/feed/${cityName}/?token=${token}`
   );
 
   const result: citySearchResponse = await res.json();
   // console.log(result, "result in search");
 
+  if (result.status !== "ok") {
+    console.error("Error in API response:", result);
+    return null;
+  }
+
+  const { data } = result;
+  const {
+    iaqi,
+    forecast: { daily },
+    city,
+  } = data;
+
   return {
-    aqi: result.data.aqi,
-    idx: result.data.idx,
-    time: result.data.time.s,
-    timezone: result.data.time.tz,
-    pm25: result.data.iaqi.pm25,
-    pm10: result.data.iaqi.pm10,
-    o3: result.data.iaqi.o3,
-    co: result.data.iaqi.co,
-    so2: result.data.iaqi.so2,
-    fc_pm25: result.data.forecast.daily.pm25,
-    fc_pm10: result.data.forecast.daily.pm10,
-    fc_o3: result.data.forecast.daily.o3,
-    fc_uvi: result.data.forecast.daily.uvi,
-    latitude: result.data.city.geo[0],
-    longitude: result.data.city.geo[1],
-    name: result.data.city.name,
+    aqi: data.aqi,
+    idx: data.idx,
+    time: data.time?.s,
+    timezone: data.time?.tz,
+    pm25: iaqi.pm25?.v,
+    pm10: iaqi.pm10?.v,
+    o3: iaqi.o3?.v,
+    co: iaqi.co?.v,
+    so2: iaqi.so2?.v,
+    fc_pm25: daily?.pm25,
+    fc_pm10: daily?.pm10,
+    fc_o3: daily?.o3,
+    fc_uvi: daily?.uvi,
+    latitude: city.geo[0],
+    longitude: city.geo[1],
+    name: city.name,
   };
 }

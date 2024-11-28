@@ -23,6 +23,7 @@ export default async function SearchName(keyword: string): Promise<Average> {
 
   const result = (await res.json()) as airResponse;
   // console.log(result, "result in search");
+
   const data = result.data[0];
   // console.log(data, "data");
 
