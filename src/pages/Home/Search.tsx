@@ -7,7 +7,6 @@ interface LocationSearchProps {
 }
 
 export default function Search({ SendResult }: LocationSearchProps) {
-  // const [places, setPlaces] = useState<Average | null>(null);
   const [term, setTerm] = useState("");
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -24,6 +23,8 @@ export default function Search({ SendResult }: LocationSearchProps) {
       <form onSubmit={handleSubmit}>
         <label htmlFor="term" />
         <input
+          className="border border-black rounded"
+          placeholder="Enter City / Station"
           id="search"
           value={term}
           onChange={(e) => setTerm(e.target.value)}

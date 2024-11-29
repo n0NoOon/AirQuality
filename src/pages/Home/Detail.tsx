@@ -14,7 +14,7 @@ export default function Detail({ place }: PlacesProps) {
   const fetchFeed = async () => {
     // console.log("place", place);
     const result = await searchFeed(place);
-    // console.log(result, "will be use");
+    console.log(result, "will be use");
     setFeed(result);
   };
 

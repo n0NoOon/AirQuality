@@ -2,6 +2,7 @@ import Map from "@/components/Map";
 import { useEffect, useState } from "react";
 import Search from "./Search";
 import Detail from "./Detail";
+import AverageFeed from "./AverageFeed";
 import { Average } from "@/api/types/Average";
 
 export default function Home() {
@@ -11,7 +12,9 @@ export default function Home() {
 
   return (
     <div className="h-screen w-auto grid grid-rows-12">
-      <div className="row-span-2">Average Feed!</div>
+      <div className="row-span-2">
+        <AverageFeed />
+      </div>
       <div className="grid grid-cols-12 row-span-8">
         <div className="col-span-7">
           <Map place={places} />
