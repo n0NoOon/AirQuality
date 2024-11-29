@@ -1,14 +1,23 @@
 import SearchName from "@/api/quries/SearchName";
+import type { Average } from "@/api/types/Average";
 
-export async function searchLoader({ request }: { request: Request }) {
+export interface SearchLoaderResult {
+  searchResult: Average[];
+}
+
+export async function searchLoader({
+  request,
+}: {
+  request: Request;
+}): Promise<SearchLoaderResult> {
   const { searchParams } = new URL(request.url);
   const term = searchParams.get("term");
   if (!term) {
     throw new Error("Search term must be provided");
   }
-  const res = await SearchName(term);
-  console.log(res);
+  const result = await SearchName(term);
+  // console.log(res);
   return {
-    searchResult: res,
+    searchResult: result,
   };
 }

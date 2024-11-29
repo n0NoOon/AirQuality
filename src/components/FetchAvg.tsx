@@ -1,8 +1,8 @@
 import { useState } from "react";
-import SearchName from "@/api/quries/SearchName";
 import { ShowAvg } from "./showAvg";
 import { Average } from "@/api/types/Average";
 import { useNavigate } from "react-router";
+import { SearchPage } from "@/pages/Search/SearchPage";
 
 export function FetchAvg() {
   const [term, setterm] = useState("");

@@ -3,6 +3,10 @@ import Root from "./pages/Root";
 import Home from "./pages/Home/Home";
 import { SearchPage } from "./pages/Search/SearchPage";
 import { searchLoader } from "./pages/Search/SearchLoader";
+import { useState } from "react";
+import { Average } from "./api/types/Average";
+
+const [station, setStation] = useState<Average | undefined>(undefined);
 
 const router = createBrowserRouter([
   {
@@ -11,11 +15,11 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Home />,
+        element: <Home station={station} />,
       },
       {
         path: "/search",
-        element: <SearchPage />,
+        element: <SearchPage onStationClick={(d) => setStation(d)} />,
         loader: searchLoader,
       },
     ],

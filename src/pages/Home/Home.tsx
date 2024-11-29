@@ -4,8 +4,13 @@ import Search from "./Search";
 import Detail from "./Detail";
 import AverageFeed from "./AverageFeed";
 import { Feed } from "@/api/types/Feed";
+import { Average } from "@/api/types/Average";
 
-export default function Home() {
+interface StationProps {
+  station: Average | undefined;
+}
+
+export default function Home({ station }: StationProps) {
   const [places, setPlaces] = useState<Feed | null>(null);
 
   // console.log("placessss", places);
@@ -13,7 +18,7 @@ export default function Home() {
   return (
     <div className="h-screen w-auto grid grid-rows-12">
       <div className="row-span-2">
-        <AverageFeed />
+        <AverageFeed station={station} />
       </div>
       <div className="grid grid-cols-12 row-span-8">
         <div className="col-span-7">

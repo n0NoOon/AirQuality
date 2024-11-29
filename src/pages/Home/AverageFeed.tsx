@@ -1,6 +1,11 @@
+import { Average } from "@/api/types/Average";
 import { FetchAvg } from "@/components/FetchAvg";
 
-export default function AverageFeed() {
+interface StationProps {
+  station: Average | undefined;
+}
+
+export default function AverageFeed({ station }: StationProps) {
   return (
     <div>
       <div className="flex gap-10">
