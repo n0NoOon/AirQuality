@@ -2,10 +2,10 @@ import "leaflet/dist/leaflet.css";
 import { Map as LeafletMap } from "leaflet";
 import { useEffect, useRef } from "react";
 import { MapContainer, TileLayer } from "react-leaflet";
-import { Average } from "@/api/types/Average";
+import { Feed } from "@/api/types/Feed";
 
 interface MapProps {
-  place: Average | null;
+  place: Feed | null;
 }
 
 function Map({ place }: MapProps) {

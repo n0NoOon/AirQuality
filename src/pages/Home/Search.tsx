@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { Average } from "@/api/types/Average";
 import SearchName from "@/api/quries/SearchName";
+import SearchFeed from "@/api/quries/SearchFeed";
+import type { Feed } from "@/api/types/Feed";
 
 interface LocationSearchProps {
-  SendResult: (data: Average | null) => void;
+  SendResult: (data: Feed | null) => void;
 }
 
 export default function Search({ SendResult }: LocationSearchProps) {
@@ -12,7 +14,7 @@ export default function Search({ SendResult }: LocationSearchProps) {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     // console.log("term", term);
-    const result = await SearchName(term);
+    const result = await SearchFeed(term);
     // setPlaces(result);
     SendResult(result);
     // console.log("handleSubmit---->", result, result);

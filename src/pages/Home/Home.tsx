@@ -3,10 +3,10 @@ import { useEffect, useState } from "react";
 import Search from "./Search";
 import Detail from "./Detail";
 import AverageFeed from "./AverageFeed";
-import { Average } from "@/api/types/Average";
+import { Feed } from "@/api/types/Feed";
 
 export default function Home() {
-  const [places, setPlaces] = useState<Average | null>(null);
+  const [places, setPlaces] = useState<Feed | null>(null);
 
   // console.log("placessss", places);
 
@@ -30,7 +30,7 @@ export default function Home() {
             />
           </div>
           <div>
-            <Detail place={places?.name} />
+            <Detail place={places} />
           </div>
         </div>
       </div>
