@@ -9,9 +9,9 @@ export default function AverageFeed({ station }: StationProps) {
   return (
     <div>
       <div className="flex gap-10">
-        <FetchAvg />
-        <FetchAvg />
-        <FetchAvg />
+        <FetchAvg station={station} />
+        <FetchAvg station={station} />
+        <FetchAvg station={station} />
       </div>
     </div>
   );

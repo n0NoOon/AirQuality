@@ -1,24 +1,24 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ShowAvg } from "./showAvg";
 import { Average } from "@/api/types/Average";
 import { useNavigate } from "react-router";
 import { SearchPage } from "@/pages/Search/SearchPage";
 
-export function FetchAvg() {
+interface StationProps {
+  station: Average | undefined;
+}
+
+export function FetchAvg({ station }: StationProps) {
   const [term, setterm] = useState("");
   const [show, setShow] = useState(false);
-  const [place, setPlace] = useState<Average>();
+  const [place, setPlace] = useState<Average | undefined>(undefined);
   const navigate = useNavigate();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    // const res = await SearchName(term);
-    // console.log(res);
-    // setPlace(res);
     navigate(`/search?term=${term}`);
-    // if (res) {
-    //   setShow(!show);
-    // }
+    setPlace(station);
+    setShow(!show);
   };
 
   let content = (
