@@ -1,5 +1,5 @@
 import type { Feed } from "@/api/types/Feed";
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useState } from "react";
 
 type PlacesProps = {
   place: Feed | null;

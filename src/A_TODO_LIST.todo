@@ -1,8 +1,7 @@
 AirQuality:
 
     Make an Average display feed which:
-        ☐ Use the major city's [array of name] to fetch the data
-        ☐ Save them into local Storage
+        ✔ Use the major city's [array of name] to fetch the data @done (11/30/2024, 6:42:20 PM)
         ☐ The Average feed editor
 
     Make a Detail display:

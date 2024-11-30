@@ -6,12 +6,8 @@ interface airResponse {
 interface Data {
   uid: number;
   aqi: number;
-  time: {
-    s: string;
-  };
   station: {
     name: string;
-    geo: number[];
   };
 }
 
@@ -30,10 +26,7 @@ export default async function SearchName(keyword: string): Promise<Average[]> {
     return {
       uid: d.uid,
       aqi: d.aqi,
-      s: d.time.s,
       name: d.station.name,
-      latitude: d.station.geo[0],
-      longitude: d.station.geo[1],
     };
   });
 
