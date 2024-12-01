@@ -1,5 +1,6 @@
 import type { Feed } from "@/api/types/Feed";
 import { Fragment, useState } from "react";
+import checkAvg from "@/components/checkAvg";
 
 type PlacesProps = {
   place: Feed | null;
@@ -17,14 +18,19 @@ export default function Detail({ place }: PlacesProps) {
   });
 
   return (
-    <div className="grid grid-rows-5">
-      <div className="row-span-1 flex justify-between">
+    <div>
+      <div
+        className="row-span-1 flex justify-between px-5 pt-2 min-h-[80px] 
+        scrollbar-thumb-slate-700 scrollbar-track-slate-300 overflow-x-scroll
+        scrollbar-thin"
+      >
         {calendar.map((d, Index) => {
           let cut = d.slice(5);
           let day = cut.replace("-", "/");
           return (
             <Fragment key={Index}>
               <button
+                className="date-btn"
                 value={Index}
                 onClick={() => {
                   setDate(Index);
@@ -37,76 +43,96 @@ export default function Detail({ place }: PlacesProps) {
           );
         })}
       </div>
-      <div className="grid row-span-4 p-5">
-        <span>{place?.name}</span>
-        <div className="grid grid-cols-2 gap-10">
-          <div className="flex flex-col border border-black justify-center items-center">
-            <span>PM 2.5</span>
-            <span>
-              <span>Max.</span>
-              <span>{place?.fc_pm25[date]?.max ?? "N/A"}</span>
+      <div className="p-5">
+        <span className="flex justify-center mb-3 font-bold text-lg text-center text-white">
+          {place?.name ?? "Try to Search some city!"}
+          <br />
+          {calendar[date] ?? "And then, I'll show you the result"}
+        </span>
+        <div className="grid grid-cols-2">
+          <div className="detail-box">
+            <div className="detail-label">PM 2.5</div>
+            <span className="detail-data-box">
+              <span className="detail-data-label">Max</span>
+              <span className="detail-data">
+                {place?.fc_pm25[date]?.max ?? "N/A"}
+              </span>
             </span>
-            <span>
-              <span>Avg.</span>
-              <span>{place?.fc_pm25[date]?.avg ?? "N/A"}</span>
+            <span className="detail-data-box">
+              <span className="detail-data-label">Avg</span>
+              {checkAvg(place?.fc_pm25[date]?.avg)}
             </span>
-            <span>
-              <span>Min.</span>
-              <span>{place?.fc_pm25[date]?.min ?? "N/A"}</span>
-            </span>
-          </div>
-          <div className="flex flex-col border border-black justify-center items-center">
-            <span>PM 10</span>
-            <span>
-              <span>Max.</span>
-              <span>{place?.fc_pm10[date]?.max ?? "N/A"}</span>
-            </span>
-            <span>
-              <span>Avg.</span>
-              <span>{place?.fc_pm10[date]?.avg ?? "N/A"}</span>
-            </span>
-            <span>
-              <span>Min.</span>
-              <span>{place?.fc_pm10[date]?.min ?? "N/A"}</span>
+            <span className="detail-data-box">
+              <span className="detail-data-label">Min</span>
+              <span className="detail-data">
+                {place?.fc_pm25[date]?.min ?? "N/A"}
+              </span>
             </span>
           </div>
-          <div className="flex flex-col border border-black justify-center items-center">
-            <span>Ozone</span>
-            <span>
-              <span>Max.</span>
-              <span>{place?.fc_o3[date]?.max ?? "N/A"}</span>
+          <div className="detail-box">
+            <span className="detail-label">PM 10</span>
+            <span className="detail-data-box">
+              <span className="detail-data-label">Max</span>
+              <span className="detail-data">
+                {place?.fc_pm10[date]?.max ?? "N/A"}
+              </span>
             </span>
-            <span>
-              <span>Avg.</span>
-              <span>{place?.fc_o3[date]?.avg ?? "N/A"}</span>
+            <span className="detail-data-box">
+              <span className="detail-data-label">Avg</span>
+              {checkAvg(place?.fc_pm10[date]?.avg)}
             </span>
-            <span>
-              <span>Min.</span>
-              <span>{place?.fc_o3[date]?.min ?? "N/A"}</span>
-            </span>
-          </div>
-          <div className="flex flex-col border border-black justify-center items-center">
-            <span>UV Index</span>
-            <span>
-              <span>Max.</span>
-              <span>{place?.fc_uvi[date]?.max ?? "N/A"}</span>
-            </span>
-            <span>
-              <span>Avg.</span>
-              <span>{place?.fc_uvi[date]?.avg ?? "N/A"}</span>
-            </span>
-            <span>
-              <span>Min.</span>
-              <span>{place?.fc_uvi[date]?.min ?? "N/A"}</span>
+            <span className="detail-data-box">
+              <span className="detail-data-label">Min</span>
+              <span className="detail-data">
+                {place?.fc_pm10[date]?.min ?? "N/A"}
+              </span>
             </span>
           </div>
-          <div className="flex flex-col border border-black justify-center items-center">
-            <span>CO</span>
-            <span>{place?.co ?? "N/A"}</span>
+          <div className="detail-box">
+            <span className="detail-label">Ozone</span>
+            <span className="detail-data-box">
+              <span className="detail-data-label">Max</span>
+              <span className="detail-data">
+                {place?.fc_o3[date]?.max ?? "N/A"}
+              </span>
+            </span>
+            <span className="detail-data-box">
+              <span className="detail-data-label">Avg</span>
+              {checkAvg(place?.fc_o3[date]?.avg)}
+            </span>
+            <span className="detail-data-box">
+              <span className="detail-data-label">Min</span>
+              <span className="detail-data">
+                {place?.fc_o3[date]?.min ?? "N/A"}
+              </span>
+            </span>
           </div>
-          <div className="flex flex-col border border-black justify-center items-center">
-            <span>SO2</span>
-            <span>{place?.so2 ?? "N/A"}</span>
+          <div className="detail-box">
+            <span className="detail-label">UV Index</span>
+            <span className="detail-data-box">
+              <span className="detail-data-label">Max</span>
+              <span className="detail-data">
+                {place?.fc_uvi[date]?.max ?? "N/A"}
+              </span>
+            </span>
+            <span className="detail-data-box">
+              <span className="detail-data-label">Avg</span>
+              {checkAvg(place?.fc_uvi[date]?.avg)}
+            </span>
+            <span className="detail-data-box">
+              <span className="detail-data-label">Min</span>
+              <span className="detail-data">
+                {place?.fc_uvi[date]?.min ?? "N/A"}
+              </span>
+            </span>
+          </div>
+          <div className="detail-box">
+            <span className="detail-label">CO</span>
+            {checkAvg(place?.co)}
+          </div>
+          <div className="detail-box">
+            <span className="detail-label">SO2</span>
+            {checkAvg(place?.so2)}
           </div>
         </div>
       </div>

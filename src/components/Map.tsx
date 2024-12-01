@@ -1,6 +1,6 @@
 import "leaflet/dist/leaflet.css";
 import { Map as LeafletMap } from "leaflet";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { MapContainer, TileLayer } from "react-leaflet";
 import { Feed } from "@/api/types/Feed";
 
@@ -11,9 +11,6 @@ interface MapProps {
 
 function Map({ place, layer }: MapProps) {
   const mapRef = useRef<LeafletMap | null>(null);
-  const [mapLayer, setMapLayer] = useState(
-    "https://tiles.aqicn.org//tiles/usepa-aqi/{z}/{x}/{y}.png?token=f2e31625803dbd97944d43e9f4193c30fcf93129"
-  );
 
   useEffect(() => {
     if (mapRef.current && place) {
@@ -22,40 +19,6 @@ function Map({ place, layer }: MapProps) {
   }, [place]);
 
   console.log("Layer", layer);
-  console.log("Map", mapLayer);
-
-  useEffect(() => {
-    if (layer === "aqi") {
-      setMapLayer(
-        "https://tiles.aqicn.org//tiles/usepa-aqi/{z}/{x}/{y}.png?token=f2e31625803dbd97944d43e9f4193c30fcf93129"
-      );
-    }
-    if (layer === "pm25") {
-      setMapLayer(
-        "https://tiles.aqicn.org//tiles/usepa-pm25/{z}/{x}/{y}.png?token=f2e31625803dbd97944d43e9f4193c30fcf93129"
-      );
-    }
-    if (layer === "pm10") {
-      setMapLayer(
-        "https://tiles.aqicn.org//tiles/usepa-pm10/{z}/{x}/{y}.png?token=f2e31625803dbd97944d43e9f4193c30fcf93129"
-      );
-    }
-    if (layer === "o3") {
-      setMapLayer(
-        "https://tiles.aqicn.org//tiles/usepa-o3/{z}/{x}/{y}.png?token=f2e31625803dbd97944d43e9f4193c30fcf93129"
-      );
-    }
-    if (layer === "so2") {
-      setMapLayer(
-        "https://tiles.aqicn.org//tiles/usepa-so2/{z}/{x}/{y}.png?token=f2e31625803dbd97944d43e9f4193c30fcf93129"
-      );
-    }
-    if (layer === "co") {
-      setMapLayer(
-        "https://tiles.aqicn.org//tiles/usepa-co/{z}/{x}/{y}.png?token=f2e31625803dbd97944d43e9f4193c30fcf93129"
-      );
-    }
-  }, [layer]);
 
   return (
     <MapContainer
@@ -67,9 +30,12 @@ function Map({ place, layer }: MapProps) {
     >
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        // url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        url="https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png"
       />
-      <TileLayer url={mapLayer} />
+      <TileLayer
+        url={`https://tiles.aqicn.org//tiles/usepa-${layer}/{z}/{x}/{y}.png?token=f2e31625803dbd97944d43e9f4193c30fcf93129`}
+      />
     </MapContainer>
   );
 }

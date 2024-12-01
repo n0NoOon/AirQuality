@@ -1,6 +1,7 @@
 import SearchName from "@/api/quries/SearchName";
 import { Average } from "@/api/types/Average";
 import { useState } from "react";
+import checkAvg from "@/components/checkAvg";
 
 interface Info {
   name: string;
@@ -44,7 +45,7 @@ export default function AverageFeed() {
   });
 
   let content = (
-    <div className="container relative ">
+    <div className="container relative bg-indigo-300">
       <div>
         <form onSubmit={handleSubmit}>
           <label htmlFor="term">
@@ -56,7 +57,7 @@ export default function AverageFeed() {
           </label>
         </form>
       </div>
-      <div className="absolute bg-violet-300 h-[16rem] overflow-y-auto z-[1001]">
+      <div className="absolute bg-inherit h-[16rem] overflow-y-auto z-[1001]">
         {renderedStation}
       </div>
     </div>
@@ -67,19 +68,18 @@ export default function AverageFeed() {
     if (info) {
       const useInfo: Info = JSON.parse(info);
       content = (
-        <div
-          className="flex flex-col items-center justify-evenly h-full"
-          onClick={() => setShow(false)}
-        >
-          <div className="items-center">{useInfo.name}</div>
+        <div className="flex flex-col items-center justify-evenly h-full">
+          <div className="items-center" onClick={() => setShow(false)}>
+            {useInfo.name}
+          </div>
           <div className="row-span-2 flex flex-col items-center">
             <span>Average air quality</span>
-            <span>{useInfo.aqi}</span>
+            <span>{checkAvg(useInfo.aqi)}</span>
           </div>
         </div>
       );
     }
   }
 
-  return <div className="bg-red-600 w-full">{content}</div>;
+  return <div className="w-full">{content}</div>;
 }

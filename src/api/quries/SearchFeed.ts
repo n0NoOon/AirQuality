@@ -1,6 +1,6 @@
 import type { Feed } from "../types/Feed";
 
-export interface citySearchResponse {
+export interface CitySearchResponse {
   status: string;
   data: Data;
 }
@@ -62,7 +62,7 @@ export default async function searchFeed(
     `https://api.waqi.info/feed/${cityName}/?token=${token}`
   );
 
-  const result: citySearchResponse = await res.json();
+  const result: CitySearchResponse = await res.json();
   console.log(result, "result in search");
 
   if (result.status !== "ok") {
