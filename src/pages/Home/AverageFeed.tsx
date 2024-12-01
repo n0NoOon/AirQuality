@@ -1,7 +1,8 @@
 import SearchName from "@/api/quries/SearchName";
 import { Average } from "@/api/types/Average";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import checkAvg from "@/components/checkAvg";
+import { randomCity } from "@/components/randomCity";
 
 interface Info {
   name: string;
@@ -21,6 +22,19 @@ export default function AverageFeed() {
     setShow(false);
   };
 
+  useEffect(() => {
+    const a = randomCity();
+    console.log(a);
+    const fetchCity = async () => {
+      const res = await SearchName(a);
+      console.log(res);
+      const onloadData = res[0];
+      const convert = JSON.stringify({ onloadData });
+      sessionStorage.setItem("place", convert);
+    };
+    fetchCity();
+  }, []);
+
   const renderedStation = station?.map((station) => {
     const name = station.name;
     const aqi = station.aqi;
@@ -28,11 +42,14 @@ export default function AverageFeed() {
     const handleClick = () => {
       setShow(!show);
       const jLocal = JSON.stringify({ name, aqi });
-      localStorage.setItem("place", jLocal);
+      sessionStorage.setItem("place", jLocal);
     };
 
     return (
-      <div key={station.uid} className="border border-black ">
+      <div
+        key={station.uid}
+        className="border border-black bg-gray-300 text-black"
+      >
         <button
           onClick={handleClick}
           className="flex flex-col items-center w-full"
@@ -45,26 +62,28 @@ export default function AverageFeed() {
   });
 
   let content = (
-    <div className="container relative bg-indigo-300">
+    <div className="container relative">
       <div>
         <form onSubmit={handleSubmit}>
           <label htmlFor="term">
             <input
-              className="border border-black rounded w-full"
+              className="border-none rounded w-full bg-[#4f5050] text-white text-center"
               value={term}
               onChange={(e) => setTerm(e.target.value)}
             />
           </label>
         </form>
       </div>
-      <div className="absolute bg-inherit h-[16rem] overflow-y-auto z-[1001]">
+      <div className="absolute bg-inherit h-[16rem] overflow-y-auto z-[1001] w-full">
         {renderedStation}
       </div>
     </div>
   );
 
+  const showInfo = () => {};
+
   if (show) {
-    const info = localStorage.getItem("place");
+    const info = sessionStorage.getItem("place");
     if (info) {
       const useInfo: Info = JSON.parse(info);
       content = (
@@ -81,5 +100,5 @@ export default function AverageFeed() {
     }
   }
 
-  return <div className="w-full">{content}</div>;
+  return <div className="w-full flex justify-center text-white">{content}</div>;
 }
