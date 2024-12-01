@@ -31,29 +31,34 @@ export default function AverageFeed() {
     };
 
     return (
-      <div key={station.uid}>
-        <button onClick={handleClick}>
-          <div>{name}</div>
-          <div>{aqi}</div>
+      <div key={station.uid} className="border border-black ">
+        <button
+          onClick={handleClick}
+          className="flex flex-col items-center w-full"
+        >
+          <span>{name}</span>
+          <span>{aqi}</span>
         </button>
       </div>
     );
   });
 
   let content = (
-    <div>
+    <div className="container relative ">
       <div>
         <form onSubmit={handleSubmit}>
           <label htmlFor="term">
             <input
-              className="border border-black rounded"
+              className="border border-black rounded w-full"
               value={term}
               onChange={(e) => setTerm(e.target.value)}
             />
           </label>
         </form>
       </div>
-      <div>{renderedStation}</div>
+      <div className="absolute bg-violet-300 h-[16rem] overflow-y-auto z-[1001]">
+        {renderedStation}
+      </div>
     </div>
   );
 
@@ -62,17 +67,19 @@ export default function AverageFeed() {
     if (info) {
       const useInfo: Info = JSON.parse(info);
       content = (
-        <div onClick={() => setShow(false)}>
-          <div>{useInfo.name}</div>
-          <div>{useInfo.aqi}</div>
+        <div
+          className="flex flex-col items-center justify-evenly h-full"
+          onClick={() => setShow(false)}
+        >
+          <div className="items-center">{useInfo.name}</div>
+          <div className="row-span-2 flex flex-col items-center">
+            <span>Average air quality</span>
+            <span>{useInfo.aqi}</span>
+          </div>
         </div>
       );
     }
   }
 
-  return (
-    <div>
-      <div>{content}</div>
-    </div>
-  );
+  return <div className="bg-red-600 w-full">{content}</div>;
 }
