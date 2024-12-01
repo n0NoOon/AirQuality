@@ -2,7 +2,7 @@ AirQuality:
 
     Make an Average display feed which:
         ✔ Use the major city's [array of name] to fetch the data @done (11/30/2024, 6:42:20 PM)
-        ☐ The Average feed editor
+        ✔ The Average feed editor @done (11/30/2024, 7:15:28 PM)
 
     Make a Detail display:
         ✔ use name of the city provided by SearchName to fetch feedData @done (11/28/2024, 10:50:58 PM)
@@ -10,6 +10,7 @@ AirQuality:
         ✔ fix uvi and o3 bug of React can't read it properties. @critical @done (11/29/2024, 7:10:46 PM)
 
     ☐ UI and Decorates @low 
+        ✔ create drop down selector to change map layer between [pm25, pm10 and other] @done (12/1/2024, 3:41:17 PM)
 
 
 

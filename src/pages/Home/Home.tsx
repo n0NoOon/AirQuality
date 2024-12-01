@@ -4,6 +4,7 @@ import Search from "./Search";
 import Detail from "./Detail";
 import AverageFeed from "./AverageFeed";
 import { Feed } from "@/api/types/Feed";
+import { randomCity } from "@/components/randomCity";
 
 export default function Home() {
   const [places, setPlaces] = useState<Feed | null>(null);
@@ -11,21 +12,23 @@ export default function Home() {
   console.log(maplayer);
   // console.log("placessss", places);
 
+  const city = randomCity();
+
   return (
     <div className="h-screen w-auto grid grid-rows-12">
-      <div className="row-span-2 flex gap-5 mt-5">
-        <AverageFeed />
-        <AverageFeed />
-        <AverageFeed />
-        <AverageFeed />
-        <AverageFeed />
+      <div className="bg-[#414242] rounded-xl row-span-2 flex mt-5 border border-gray-600 shadow-md">
+        <AverageFeed randomCity={city} />
+        <AverageFeed randomCity={city} />
+        <AverageFeed randomCity={city} />
+        <AverageFeed randomCity={city} />
+        <AverageFeed randomCity={city} />
       </div>
       <div className="grid grid-cols-12 row-span-8">
         <div className="col-span-7 p-3">
           <Map place={places} layer={maplayer} />
           <div className="flex flex-row py-4">
             <button onClick={() => setMaplayer("aqi")} className="map-btn">
-              AQI
+              Real time AirQuality
             </button>
             <button onClick={() => setMaplayer("pm25")} className="map-btn">
               PM 2.5
