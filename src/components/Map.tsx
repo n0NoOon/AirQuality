@@ -18,7 +18,7 @@ function Map({ place, layer }: MapProps) {
     }
   }, [place]);
 
-  console.log("Layer", layer);
+  // console.log("Layer", layer);
 
   return (
     <MapContainer

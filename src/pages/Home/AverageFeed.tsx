@@ -1,27 +1,28 @@
 import SearchName from "@/api/quries/SearchName";
 import { Average } from "@/api/types/Average";
-import { Fragment, useEffect, useMemo, useState } from "react";
+import { useState } from "react";
 import checkAvg from "@/components/checkAvg";
 
-interface Info {
+export interface Info {
   name: string;
   aqi: number;
 }
-interface City {
-  randomCity: string;
+interface AverageFeedProps {
+  pos: number;
+  addFav: (city: Info, pos: number) => void;
+  detail: Info | null;
+  delFav: (city: null, pos: number) => void;
 }
 
-export default function AverageFeed({ randomCity }: City) {
+export default function AverageFeed(props: AverageFeedProps) {
   const [term, setTerm] = useState("");
   const [station, setStation] = useState<Average[]>();
-  const [show, setShow] = useState(false);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const res = await SearchName(term);
     // console.log(res);
     setStation(res);
-    setShow(false);
   };
 
   const renderedStation = station?.map((station) => {
@@ -29,9 +30,7 @@ export default function AverageFeed({ randomCity }: City) {
     const aqi = station.aqi;
 
     const handleClick = () => {
-      setShow(!show);
-      const jLocal = JSON.stringify({ name, aqi });
-      sessionStorage.setItem("place", jLocal);
+      props.addFav({ name, aqi }, props.pos);
     };
 
     return (
@@ -71,41 +70,23 @@ export default function AverageFeed({ randomCity }: City) {
     </div>
   );
 
-  const showInfo = () => {
-    const info = sessionStorage.getItem("place");
-    // console.log("info", info);
-    if (info) {
-      const useInfo: Info = JSON.parse(info);
-      // console.log(useInfo);
-      content = (
-        <div className="flex flex-col items-center justify-evenly h-full text-center">
-          <div className="items-center" onClick={() => setShow(false)}>
-            {useInfo.name}
-          </div>
-          <div className="row-span-2 flex flex-col items-center border-t-2">
-            <span>Average air quality</span>
-            <span>{checkAvg(useInfo.aqi)}</span>
-          </div>
+  const detail = props.detail;
+  if (detail) {
+    content = (
+      <div className="flex flex-col items-center justify-evenly h-full text-center">
+        <div
+          className="items-center"
+          onClick={() => props.delFav(null, props.pos)}
+        >
+          {detail.name}
         </div>
-      );
-    }
-  };
-
-  if (show) {
-    showInfo();
+        <div className="row-span-2 flex flex-col items-center border-t-2">
+          <span>Average air quality</span>
+          <span>{checkAvg(detail.aqi)}</span>
+        </div>
+      </div>
+    );
   }
-
-  // useEffect(() => {
-  //   const fetchCity = async () => {
-  //     const res = await SearchName(randomCity);
-  //     const onloadData = res[0];
-  //     const convert = JSON.stringify(onloadData);
-  //     sessionStorage.setItem("place", convert);
-  //   };
-  //   fetchCity();
-  //   showInfo();
-  //   setShow(!show);
-  // }, []);
 
   return <div className="w-full flex justify-center text-white">{content}</div>;
 }
