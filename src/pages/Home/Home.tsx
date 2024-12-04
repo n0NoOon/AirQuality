@@ -7,7 +7,8 @@ import { Feed } from "@/api/types/Feed";
 
 export default function Home() {
   const [places, setPlaces] = useState<Feed | null>(null);
-  const [maplayer, setMaplayer] = useState("aqi");
+  const [mapLayer, setMapLayer] = useState("aqi");
+  const [mapName, setMapName] = useState("Real time AirQuality");
   const [favCities, setFavCities] = useState<(Info | null)[]>([
     null,
     null,
@@ -55,24 +56,63 @@ export default function Home() {
       </div>
       <div className="grid grid-cols-12 row-span-8">
         <div className="col-span-7 p-3">
-          <Map place={places} layer={maplayer} />
+          <Map place={places} layer={mapLayer} />
           <div className="flex flex-row py-4">
-            <button onClick={() => setMaplayer("aqi")} className="map-btn">
+            <div className="bg-white font-bold text-lg text-center content-center rounded-full mt-3 px-5 py-2.5 me-2 mb-2 w-full">
+              {mapName}
+            </div>
+            <button
+              onClick={() => {
+                setMapLayer("aqi");
+                setMapName("Real time AirQuality");
+              }}
+              className="map-btn"
+            >
               Real time AirQuality
             </button>
-            <button onClick={() => setMaplayer("pm25")} className="map-btn">
+            <button
+              onClick={() => {
+                setMapLayer("pm25");
+                setMapName("PM 2.5");
+              }}
+              className="map-btn"
+            >
               PM 2.5
             </button>
-            <button onClick={() => setMaplayer("pm10")} className="map-btn">
+            <button
+              onClick={() => {
+                setMapLayer("pm10");
+                setMapName("PM 10");
+              }}
+              className="map-btn"
+            >
               PM 10
             </button>
-            <button onClick={() => setMaplayer("o3")} className="map-btn">
+            <button
+              onClick={() => {
+                setMapLayer("o3");
+                setMapName("Ozone");
+              }}
+              className="map-btn"
+            >
               Ozone
             </button>
-            <button onClick={() => setMaplayer("so2")} className="map-btn">
+            <button
+              onClick={() => {
+                setMapLayer("so2");
+                setMapName("Sulfur Dioxide");
+              }}
+              className="map-btn"
+            >
               Sulfur Dioxide
             </button>
-            <button onClick={() => setMaplayer("co")} className="map-btn">
+            <button
+              onClick={() => {
+                setMapLayer("co");
+                setMapName("Carbon Monoxide");
+              }}
+              className="map-btn"
+            >
               Carbon Monoxide
             </button>
           </div>
