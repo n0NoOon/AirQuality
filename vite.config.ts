@@ -11,8 +11,8 @@ export default defineConfig(({ command }) => {
     },
   };
 
-  if (command !== "serve") {
-    config.base = "/AirQuality";
+  if (command === "serve") {
+    config.base = "/";
   }
 
   return config;
