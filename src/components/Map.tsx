@@ -1,6 +1,6 @@
 import "leaflet/dist/leaflet.css";
 import { Map as LeafletMap } from "leaflet";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { MapContainer, TileLayer } from "react-leaflet";
 import { Feed } from "@/api/types/Feed";
 
@@ -11,8 +11,6 @@ interface MapProps {
 
 function Map({ place, layer }: MapProps) {
   const mapRef = useRef<LeafletMap | null>(null);
-  const [darkMode] = useState(true);
-
   useEffect(() => {
     if (mapRef.current && place) {
       mapRef.current.flyTo([place.latitude, place.longitude]);
