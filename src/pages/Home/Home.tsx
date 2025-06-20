@@ -8,7 +8,7 @@ import { Feed } from "@/api/types/Feed";
 export default function Home() {
   const [places, setPlaces] = useState<Feed | null>(null);
   const [mapLayer, setMapLayer] = useState("aqi");
-  const [mapName, setMapName] = useState("Real time AirQuality");
+  const [mapType, setMapType] = useState("Real time AirQuality");
   const [favCities, setFavCities] = useState<(Info | null)[]>([
     null,
     null,
@@ -38,7 +38,7 @@ export default function Home() {
     const nowFavCities = [...favCities];
     nowFavCities[pos] = city;
     setFavCities(nowFavCities);
-    localStorage.setItem("place", JSON.stringify(nowFavCities));
+    localStorage.setItem("places", JSON.stringify(nowFavCities));
   };
 
   return (
@@ -56,15 +56,15 @@ export default function Home() {
       </div>
       <div className="grid grid-cols-12 row-span-8">
         <div className="col-span-7 p-3">
-          <Map place={places} layer={mapLayer} />
           <div className="flex flex-row py-4">
+            {/* MapType Selector */}
             <div className="bg-white font-bold text-lg text-center content-center rounded-full mt-3 px-5 py-2.5 me-2 mb-2 w-full">
-              {mapName}
+              {mapType}
             </div>
             <button
               onClick={() => {
                 setMapLayer("aqi");
-                setMapName("Real time AirQuality");
+                setMapType("Real time AirQuality");
               }}
               className="map-btn"
             >
@@ -73,7 +73,7 @@ export default function Home() {
             <button
               onClick={() => {
                 setMapLayer("pm25");
-                setMapName("PM 2.5");
+                setMapType("PM 2.5");
               }}
               className="map-btn"
             >
@@ -82,7 +82,7 @@ export default function Home() {
             <button
               onClick={() => {
                 setMapLayer("pm10");
-                setMapName("PM 10");
+                setMapType("PM 10");
               }}
               className="map-btn"
             >
@@ -91,7 +91,7 @@ export default function Home() {
             <button
               onClick={() => {
                 setMapLayer("o3");
-                setMapName("Ozone");
+                setMapType("Ozone");
               }}
               className="map-btn"
             >
@@ -100,7 +100,7 @@ export default function Home() {
             <button
               onClick={() => {
                 setMapLayer("so2");
-                setMapName("Sulfur Dioxide");
+                setMapType("Sulfur Dioxide");
               }}
               className="map-btn"
             >
@@ -109,13 +109,14 @@ export default function Home() {
             <button
               onClick={() => {
                 setMapLayer("co");
-                setMapName("Carbon Monoxide");
+                setMapType("Carbon Monoxide");
               }}
               className="map-btn"
             >
               Carbon Monoxide
             </button>
           </div>
+          <Map place={places} layer={mapLayer} />
         </div>
         <div className="col-span-5 p-5">
           <div className="mb-5">
