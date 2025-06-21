@@ -1,6 +1,7 @@
 import type { Feed } from "@/api/types/Feed";
 import { Fragment, useState } from "react";
 import checkAvg from "@/components/checkAvg";
+import { IoIosCloseCircleOutline } from "react-icons/io";
 
 type PlacesProps = {
   place: Feed | null;
@@ -60,7 +61,7 @@ export default function Detail({ place, clearCity }: PlacesProps) {
                   className="mt-2 px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600"
                   onClick={clearCity}
                 >
-                  Clear City
+                  <IoIosCloseCircleOutline />
                 </button>
               )}
             </span>
