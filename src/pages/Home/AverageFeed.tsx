@@ -76,7 +76,7 @@ export default function AverageFeed(props: AverageFeedProps) {
     content = (
       <div className="flex flex-col items-center justify-evenly h-full text-center">
         <div
-          className="items-center hover:cursor-pointer"
+          className="items-center hover:cursor-pointer font-bold"
           onClick={() => props.delFav(null, props.pos)}
         >
           {detail.name}

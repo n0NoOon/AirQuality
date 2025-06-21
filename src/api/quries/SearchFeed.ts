@@ -63,7 +63,7 @@ export default async function searchFeed(
   );
 
   const result: CitySearchResponse = await res.json();
-  console.log(result, "result in search");
+  // console.log(result, "result in search");
 
   if (result.status !== "ok") {
     console.error("Error in API response:", result);

@@ -13,8 +13,6 @@ export default function Home() {
     null,
     null,
     null,
-    null,
-    null,
   ]);
   // console.log(maplayer);
   // console.log("placessss", places);
@@ -42,8 +40,8 @@ export default function Home() {
   };
 
   return (
-    <div className="h-screen w-auto grid grid-rows-12">
-      <div className="bg-[#414242] rounded-xl row-span-2 flex mt-5 border border-gray-600 shadow-md">
+    <div className="flex flex-col">
+      <div className="bg-[#414242] rounded-xl mt-5 border border-gray-600 shadow-md">
         {favCities.map((fc, idx) => (
           <AverageFeed
             key={idx}
@@ -54,11 +52,12 @@ export default function Home() {
           />
         ))}
       </div>
-      <div className="grid grid-cols-12 row-span-8">
-        <div className="col-span-7 p-3">
-          <div className="flex flex-row py-4">
+      <div className="flex flex-col">
+        <div className="flex flex-col">
+          <Map place={places} layer={mapLayer} />
+          <div className="flex py-4 flex-wrap">
             {/* MapType Selector */}
-            <div className="bg-white font-bold text-lg text-center content-center rounded-full mt-3 px-5 py-2.5 me-2 mb-2 w-full">
+            <div className="bg-white font-bold text-lg text-center content-center rounded-full mt-3 px-5 py-2.5 me-2 mb-1">
               {mapType}
             </div>
             <button
@@ -116,9 +115,8 @@ export default function Home() {
               Carbon Monoxide
             </button>
           </div>
-          <Map place={places} layer={mapLayer} />
         </div>
-        <div className="col-span-5 p-5">
+        <div className="">
           <div className="mb-5">
             <Search
               sendResult={(p) => {
