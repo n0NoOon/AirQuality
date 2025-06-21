@@ -4,9 +4,10 @@ import checkAvg from "@/components/checkAvg";
 
 type PlacesProps = {
   place: Feed | null;
+  clearCity?: () => void;
 };
 
-export default function Detail({ place }: PlacesProps) {
+export default function Detail({ place, clearCity }: PlacesProps) {
   // const [feed, setFeed] = useState<Feed | null>(null);
   const [show, setShow] = useState(false);
   const [date, setDate] = useState<number>(2);
@@ -19,36 +20,52 @@ export default function Detail({ place }: PlacesProps) {
 
   return (
     <div>
-      <div
-        className="row-span-1 flex justify-between px-5 pt-2 min-h-[80px] 
+      {place && (
+        <div
+          className="row-span-1 flex justify-between px-5 pt-2 min-h-[80px] 
         scrollbar-thumb-slate-700 scrollbar-track-slate-300 overflow-x-scroll
         scrollbar-thin"
-      >
-        {calendar.map((d, Index) => {
-          let cut = d.slice(5);
-          let day = cut.replace("-", "/");
-          return (
-            <Fragment key={Index}>
-              <button
-                className="date-btn"
-                value={Index}
-                onClick={() => {
-                  setDate(Index);
-                  setShow(!show);
-                }}
-              >
-                {day}
-              </button>
-            </Fragment>
-          );
-        })}
-      </div>
+        >
+          {calendar.map((d, Index) => {
+            let cut = d.slice(5);
+            let day = cut.replace("-", "/");
+            return (
+              <Fragment key={Index}>
+                <button
+                  className="date-btn"
+                  value={Index}
+                  onClick={() => {
+                    setDate(Index);
+                    setShow(!show);
+                  }}
+                >
+                  {day}
+                </button>
+              </Fragment>
+            );
+          })}
+        </div>
+      )}
       <div className="p-5">
-        <span className="flex justify-center mb-3 font-bold text-lg text-center text-white">
-          {place?.name ?? "Try to Search some city!"}
-          <br />
-          {calendar[date] ?? "And then, I'll show you the result"}
-        </span>
+        <div className="relative">
+          <span className="flex justify-center mb-3 font-bold text-lg text-center text-white">
+            {place?.name ?? "Try to Search some city!"}
+            <br />
+            {calendar[date] ?? "And then, I'll show you the result"}
+          </span>
+          {place && (
+            <span className="absolute top-0 right-0 flex flex-col items-center mt-2">
+              {clearCity && (
+                <button
+                  className="mt-2 px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600"
+                  onClick={clearCity}
+                >
+                  Clear City
+                </button>
+              )}
+            </span>
+          )}
+        </div>
         <div className="grid grid-cols-2">
           <div className="detail-box">
             <div className="detail-label">PM 2.5</div>
