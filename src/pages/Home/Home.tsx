@@ -42,7 +42,7 @@ export default function Home() {
   };
 
   return (
-    <div className="flex flex-col gap-3">
+    <div className="container mx-auto px-5 flex flex-col gap-3">
       <div className="bg-[#414242] rounded-xl mt-5 border border-gray-600 shadow-md md:flex md:py-4">
         {favCities.map((fc, idx) => (
           <AverageFeed
