@@ -55,7 +55,7 @@ export default function AverageFeed(props: AverageFeedProps) {
         <form onSubmit={handleSubmit}>
           <label htmlFor="term">
             <input
-              className="border-none rounded w-full bg-[#4f5050] text-white text-center"
+              className="border-none rounded w-full bg-transparent text-white text-center"
               placeholder="Enter a city name"
               value={term}
               onChange={(e) => setTerm(e.target.value)}
