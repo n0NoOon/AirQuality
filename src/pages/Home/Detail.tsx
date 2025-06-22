@@ -111,17 +111,29 @@ export default function Detail({ place, clearCity }: PlacesProps) {
             <span className="detail-data-box">
               <span className="detail-data-label">Max</span>
               <span className="detail-data">
-                {place?.fc_o3[date]?.max ?? "N/A"}
+                {place?.fc_o3 &&
+                place.fc_o3[date] &&
+                place.fc_o3[date].max !== undefined
+                  ? place.fc_o3[date].max
+                  : "N/A"}
               </span>
             </span>
             <span className="detail-data-box">
               <span className="detail-data-label">Avg</span>
-              {checkAvg(place?.fc_o3[date]?.avg)}
+              {place?.fc_o3 &&
+              place.fc_o3[date] &&
+              place.fc_o3[date].avg !== undefined
+                ? checkAvg(place.fc_o3[date].avg)
+                : "N/A"}
             </span>
             <span className="detail-data-box">
               <span className="detail-data-label">Min</span>
               <span className="detail-data">
-                {place?.fc_o3[date]?.min ?? "N/A"}
+                {place?.fc_o3 &&
+                place.fc_o3[date] &&
+                place.fc_o3[date].min !== undefined
+                  ? place.fc_o3[date].min
+                  : "N/A"}
               </span>
             </span>
           </div>
@@ -130,17 +142,29 @@ export default function Detail({ place, clearCity }: PlacesProps) {
             <span className="detail-data-box">
               <span className="detail-data-label">Max</span>
               <span className="detail-data">
-                {place?.fc_uvi[date]?.max ?? "N/A"}
+                {place?.fc_uvi &&
+                place.fc_uvi[date] &&
+                place.fc_uvi[date].max !== undefined
+                  ? place.fc_uvi[date].max
+                  : "N/A"}
               </span>
             </span>
             <span className="detail-data-box">
               <span className="detail-data-label">Avg</span>
-              {checkAvg(place?.fc_uvi[date]?.avg)}
+              {place?.fc_uvi &&
+              place.fc_uvi[date] &&
+              place.fc_uvi[date].avg !== undefined
+                ? checkAvg(place.fc_uvi[date].avg)
+                : "N/A"}
             </span>
             <span className="detail-data-box">
               <span className="detail-data-label">Min</span>
               <span className="detail-data">
-                {place?.fc_uvi[date]?.min ?? "N/A"}
+                {place?.fc_uvi &&
+                place.fc_uvi[date] &&
+                place.fc_uvi[date].min !== undefined
+                  ? place.fc_uvi[date].min
+                  : "N/A"}
               </span>
             </span>
           </div>
